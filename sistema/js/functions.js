@@ -41,5 +41,54 @@ $(document).ready(function () {
             error: function (error) {
             }
         });
+
+    });
+    
+    
+    // Función para alternar la visibilidad de la clave
+    $('.toggle-password').on('click', function () {
+        var password = $(this).prev('.password');
+        if (password.css('display') === 'none') {
+            password.css('display', 'inline');
+            $(this).text('Ocultar');
+        } else {
+            password.css('display', 'none');
+            $(this).text('Mostrar');
+        }
+    });
+
+    function toggleClave(button) {
+        const row = $(button).closest('tr');
+        const claveOculta = row.find('.clave_oculta');
+        const claveVisible = row.find('.clave_visible');
+        if (claveOculta.is(':hidden')) {
+            claveOculta.show();
+            claveVisible.hide();
+        } else {
+            claveOculta.hide();
+            claveVisible.show();
+        }
+    }
+
+    
+    // Evento para el botón de mostrar/ocultar clave
+    $('.btn_toggle_clave').on('click', function () {
+        toggleClave(this);
+    });
+
+    $('.btn_toggle_clave').on('click', function () {
+        toggleClave(this);
+    });
+
+
+    // Mostrar el modal para añadir obligación temporal
+    $('#btn_mostrar_formulario').click(function () {
+        $('#formularioObligacion').css('display', 'block');
+    });
+
+    // Cerrar el modal
+    $('#btn_cerrar_formulario').click(function () {
+        $('#formularioObligacion').css('display', 'none');
+        $('#form_obligacion_temporal')[0].reset(); // Reiniciar el formulario
     });
 });

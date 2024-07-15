@@ -2,10 +2,11 @@
 include "../db.php";
 session_start();
 
+
 if (!empty($_POST)) {
     //  Actualizar datos de la Empresa
     if ($_POST['action'] == 'updateDataEmpresa') {
-        if (empty($_POST['txtRuc']) ||(empty($_POST['txtDv']) || empty($_POST['txtNombre']) || empty($_POST['txtTelEmpresa'])) || empty($_POST['txtEmailEmpresa']) || empty($_POST['txtDirEmpresa'])) {
+        if (empty($_POST['txtRuc']) || (empty($_POST['txtDv']) || empty($_POST['txtNombre']) || empty($_POST['txtTelEmpresa'])) || empty($_POST['txtEmailEmpresa']) || empty($_POST['txtDirEmpresa'])) {
             $code = '1';
             $msg = "Todos los campos son obligatorios";
         } else {
@@ -32,5 +33,8 @@ if (!empty($_POST)) {
         echo json_encode($array_data, JSON_UNESCAPED_UNICODE);
         exit;
     }
+
+    // Cerrar conexión a la base de datos al finalizar
+    mysqli_close($conection);
 }
 exit;

@@ -8,15 +8,11 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-    background-color: rgb(150, 148, 148);
-}
-
 .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 110vh;
+    min-height: 100vh;
     background: rgba(39, 39, 39, 0.4);
 }
 

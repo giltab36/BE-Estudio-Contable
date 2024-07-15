@@ -1,5 +1,8 @@
 <?php
 session_start();
+if ($_SESSION['rol'] != 1) {
+    header("location: ./");
+}
 
 include "../db.php";
 

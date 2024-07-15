@@ -36,6 +36,11 @@ input[type=number] {
     margin-left: 250px;
 }
 
+.loading {
+    text-align: center;
+    padding-top: 15%;
+}
+
 /* ====================================================== */
 
 /* ======= CSS FORM CLIENTES ======= */
@@ -68,6 +73,16 @@ input[type=number] {
 /* ============================================ */
 
 /* =========== LIST & FORM CLIENT ============ */
+
+.scrollable-container-client {
+    max-height: 400px;
+    /* Ajusta esta altura según tus necesidades */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 2px;
+    background-color: rgba(192, 192, 192, 0.377);
+    border-radius: 5px;
+}
 
 .container {
     display: -webkit-flex;
@@ -105,11 +120,39 @@ table td {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.client_list {
-    margin-top: 20px;
+.client_list_box {
+    flex: 1;
+    max-width: 600px;
+    width: 100%;
+    overflow-y: auto;
+    /* Hace que la lista sea scrollable verticalmente */
+    margin-left: auto;
+    /* Alinea la lista a la derecha */
 }
 
-.btn_obli{
+.form_search {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.form_search .input_search {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form_search .btn_search {
+    padding: 8px;
+    margin-left: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.btn_obli {
     padding: 2px 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -136,6 +179,19 @@ table td {
     background-color: red;
     color: white;
     border: none;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form_register_client,
+    .client_list_box {
+        max-width: 100%;
+        margin-left: 0;
+    }
 }
 
 /* ============================================ */
@@ -316,11 +372,34 @@ table td {
 
 /* ======================================================= */
 
+/* ============ BOTONES ===============*/
+
 .notitemone option:first-child {
     display: none;
 }
 
 .btn_save {
+    font-size: 12pt;
+    background: #12a4c6;
+    padding: 10px;
+    color: #FFF;
+    letter-spacing: 1px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px auto;
+    display: block;
+}
+
+.link_new {
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: unset;
+}
+
+.btn_new {
+    text-decoration: none;
     font-size: 12pt;
     background: #12a4c6;
     padding: 10px;
@@ -409,6 +488,13 @@ select {
     margin: 5px 0px 10px 0px;
 }
 
+.comentario {
+    width: 100%;
+    height: 150px;
+    resize: vertical;
+    /* Permite al usuario cambiar el tamaño verticalmente */
+}
+
 .notitemone option:first-child {
     display: none;
 }
@@ -482,3 +568,275 @@ h3 {
 }
 
 /* ====================================================== */
+
+/* LISTADO CSS */
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 2px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header button {
+    margin: 10px;
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+header button:hover {
+    background-color: #777;
+}
+
+main {
+    padding: 20px;
+}
+
+.scrollable-container {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.664);
+    border-radius: 5px;
+}
+
+/* === CLIENT VISIT LIST CSS */
+
+.client-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.client-item {
+    background-color: rgba(255, 255, 255, 0.664);
+    margin-bottom: 1px;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.client-item h2 {
+    margin-top: 0;
+}
+
+.client-item p {
+    margin: 5px 0;
+}
+
+.client-item button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.client-item button a {
+    color: white;
+    text-decoration: none;
+}
+
+.client-item button:hover {
+    background-color: #0056b3;
+}
+
+.edit-button {
+    text-align: right;
+}
+
+.edit-button button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-button button a {
+    color: white;
+    text-decoration: none;
+}
+
+.edit-button button:hover {
+    background-color: #0056b3;
+}
+
+
+/*===== USER LIST CSS */
+
+.user-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-item {
+    background-color: rgba(255, 255, 255, 0.664);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item h2 {
+    margin-top: 0;
+}
+
+.user-item p {
+    margin: 0.5rem 0;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn_edit,
+.btn_delete {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn_edit {
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: unset;
+}
+
+.btn_delete {
+    background-color: #f44336;
+    color: white;
+}
+
+
+/*=========== CSS OBLIGACIONES ==========*/
+
+/* Estilos para el formulario emergente (modal) */
+.modal {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    /* Fijo en la pantalla */
+    z-index: 1;
+    /* Colocado encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Ancho completo */
+    height: 100%;
+    /* Alto completo */
+    overflow: auto;
+    /* Permite desplazamiento si el contenido es grande */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo oscuro semi-transparente */
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% desde arriba y centrado horizontalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Puede ajustar el ancho según sea necesario */
+    max-width: 600px;
+    /* Máximo ancho */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    position: relative;
+}
+
+/* Estilos para el botón de cerrar (X) */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*================ CLIENT CSS REGISTER ===================*/
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left_side {
+    width: 40%;
+}
+
+.right_side {
+    width: 40%;
+}
+
+.form_register_client,
+.client_list_box {
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.table th,
+.table td {
+    padding: 5px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

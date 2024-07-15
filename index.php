@@ -6,37 +6,45 @@ session_start();
 
 if (!empty($_SESSION['active'])) {
     header('location: sistema/');
-} else {
+    exit();
+}
 
-    if (!empty($_POST)) {
-        if (empty($_POST['username']) || empty($_POST['clave'])) {
-            $alert = "Ingrese su nombre de usuario y su clave";
-        } else {
+if (!empty($_POST)) {
+    if (empty($_POST['username']) || empty($_POST['clave'])) {
+        $alert = "Ingrese su nombre de usuario y su clave";
+    } else {
+        require_once "db.php";
 
-            require_once "db.php";
+        $user = mysqli_real_escape_string($conection, $_POST['username']);
+        $pass = mysqli_real_escape_string($conection, $_POST['clave']);
 
-            $user = mysqli_real_escape_string($conection, $_POST['username']);
-            $pass = md5(mysqli_real_escape_string($conection, $_POST['clave']));
+        $query = mysqli_query($conection, "SELECT u.id, u.nombre, u.username, u.clave, u.state, u.rol, r.nombre AS n_rol 
+                                            FROM user u
+                                            INNER JOIN rol r ON u.rol = r.id
+                                            WHERE u.username = '$user' AND u.state = 1");
+        mysqli_close($conection);
+        $result = mysqli_num_rows($query);
 
-            $query = mysqli_query($conection, "SELECT u.id, u.username, u.state, u.rol, r.nombre AS n_rol FROM user u
-                                                INNER JOIN rol r ON u.rol = r.id
-                                                WHERE u.username = '$user' AND u.clave = '$pass' AND u.state = 1");
-            mysqli_close($conection);
-            $result = mysqli_num_rows($query);
+        if ($result > 0) {
+            $data = mysqli_fetch_array($query);
 
-            if ($result > 0) {
-                $data = mysqli_fetch_array($query);
+            if (password_verify($pass, $data['clave'])) {
                 $_SESSION['active'] = true;
                 $_SESSION['idUser'] = $data['id'];
+                $_SESSION['Nuser'] = $data['nombre'];
                 $_SESSION['user'] = $data['username'];
                 $_SESSION['rol'] = $data['rol'];
                 $_SESSION['Nrol'] = $data['n_rol'];
 
                 header('location: sistema/');
+                exit();
             } else {
                 $alert = "El usuario o la clave son incorrectos";
                 session_destroy();
             }
+        } else {
+            $alert = "El usuario o la clave son incorrectos";
+            session_destroy();
         }
     }
 }
@@ -56,7 +64,7 @@ if (!empty($_SESSION['active'])) {
     <title>BE Estudio Contable</title>
 </head>
 
-<body style="background: url('./img/1.jpg') no-repeat; background-size: cover; background-position: center; height: 100%;">
+<body style="background: url('./img/1.webp') no-repeat; background-size: cover; background-position: center; height: 100%;">
     <div class="wrapper">
         <nav class="nav">
             <div class="nav-logo">
@@ -156,7 +164,7 @@ if (!empty($_SESSION['active'])) {
     </div> -->
 
 
-            <script>
+            <!-- <script>
                 function myMenuFunction() {
                     var i = document.getElementById("navMenu");
 
@@ -166,7 +174,7 @@ if (!empty($_SESSION['active'])) {
                         i.className = "nav-menu";
                     }
                 }
-            </script>
+            </script> -->
 
             <script>
                 var a = document.getElementById("loginBtn");

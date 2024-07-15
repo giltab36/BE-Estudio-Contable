@@ -7,18 +7,17 @@ include "../db.php";
 
 if (!empty($_POST)) {
     $alert = '';
-    if (/* empty($_POST['nombre']) || */empty($_POST['username']) /* || empty($_POST['correo']) */ || empty($_POST['clave']) || empty($_POST['rol'])) {
+    if (empty($_POST['username']) || empty($_POST['clave']) || empty($_POST['rol'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else {
 
-        /* $idusuario = $_POST['id']; <= para la auditoria*/
         $nombre = $_POST['nombre'];
         $user = $_POST['username'];
         $email = $_POST['correo'];
-        $pass = md5($_POST['clave']);
+        $pass = password_hash($_POST['clave'], PASSWORD_BCRYPT);
         $rol = $_POST['rol'];
 
-        $query = mysqli_query($conection, "SELECT * FROM user WHERE username = '$user' /* OR correo = '$email' */");
+        $query = mysqli_query($conection, "SELECT * FROM user WHERE username = '$user'");
         $result = mysqli_fetch_array($query);
 
         if ($result > 0) {
@@ -28,10 +27,8 @@ if (!empty($_POST)) {
                 $query_insert = mysqli_query($conection, "INSERT INTO user (username, correo, clave, rol) VALUE ('$user', '$email', '$pass', '$rol')");
             } elseif (empty($_POST['correo'])) {
                 $query_insert = mysqli_query($conection, "INSERT INTO user (nombre, username, clave, rol) VALUE ('$nombre', '$user', '$pass', '$rol')");
-            } elseif (empty($_POST['correo']) || empty($_POST['correo'])) {
-                $query_insert = mysqli_query($conection, "INSERT INTO user (username, clave, rol) VALUE ('$user', '$pass', '$rol')");
-            } else {
-                $query_insert = mysqli_query($conection, "INSERT INTO user (nombre, username, correo, clave, rol) VALUE ('$nombre', '$user', '$email', '$pass', '$rol')");
+            } elseif (empty($_POST['nombre']) || (empty($_POST['correo']))) {
+                $query_insert = mysqli_query($conection, "INSERT INTO user (username, clave, rol) VALUE ('$nombre', '$user', '$pass', '$rol')");
             }
             /* $query_insert = mysqli_query($conection, "INSERT INTO user (nombre, username, correo, clave, rol) VALUE ('$nombre', '$user', '$email', '$pass', '$rol')"); */
 
@@ -43,6 +40,7 @@ if (!empty($_POST)) {
         }
     }
 }
+mysqli_close($conection);
 
 ?>
 <!DOCTYPE html>
@@ -68,13 +66,13 @@ if (!empty($_POST)) {
                 <input class="in_user" type="text" name="nombre" id="nombre" placeholder="Nombre Completo">
 
                 <label class="lb_user" for="username">Usuario:</label>
-                <input class="in_user" type="text" name="username" id="username" placeholder="Nombre de usuario">
+                <input class="in_user" type="text" name="username" id="username" placeholder="Nombre de usuario" autocomplete="new-password">
 
                 <label class="lb_user" for="correo">Correo Electrónico:</label>
                 <input class="in_user" type="email" name="correo" id="correo" placeholder="ejemplo@gmail.com">
 
                 <label class="lb_user" for="clave">Contraseña:</label>
-                <input class="in_user" type="password" name="clave" id="clave" placeholder="Contraseña">
+                <input class="in_user" type="password" name="clave" id="clave" placeholder="Contraseña" autocomplete="new-password">
 
                 <label class="lb_user" for="rol">Tipo de Usuario:</label>
                 <?php
@@ -101,11 +99,6 @@ if (!empty($_POST)) {
         </div>
     </section>
 
-
-
-    <?php
-    include "include/footer.php";
-    ?>
 </body>
 
 </html>

@@ -20,9 +20,8 @@ if ($row_empesa > 0) {
 
 ?>
 
-<div class="sidebar ">
+<div class="sidebar close">
     <div class="logo-details">
-        <!-- <i class="bx bxl-c-plus-plus"></i> -->
         <img src="img/logo_be.png" alt="logo">
         <span class="logo_name"><?php echo $nombreEmpresa ?></span>
     </div>
@@ -32,6 +31,18 @@ if ($row_empesa > 0) {
                 <i class="bx bx-grid-alt"></i>
                 <span class="link_name">Dashboard</span>
             </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="index.php">Dashboard</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="recep_visita.php">
+                <i class='bx bxs-user-rectangle'></i>
+                <span class="link_name">Visitas</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="recep_visita.php">Visitas</a></li>
+            </ul>
         </li>
         <li>
             <div class="icon-link">
@@ -43,9 +54,9 @@ if ($row_empesa > 0) {
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name" href="#">Registro de Doc. IRP</a></li>
-                <li><a href="equipos_M.php">Doc. Recibido</a></li>
-                <li><a href="jugadores_M.php">Contenido en Caja</a></li>
-                <li><a href="encuentros_M.php">Cargas Extras</a></li>
+                <li><a href="recibido_irp.php">Doc. Recibido</a></li>
+                <li><a href="caja_irp.php">Contenido en Caja</a></li>
+                <li><a href="extras_irp.php">Cargas Extras</a></li>
             </ul>
         </li>
         <li>
@@ -58,25 +69,29 @@ if ($row_empesa > 0) {
             </div>
             <ul class="sub-menu">
                 <li><a class="link_name" href="#">Registro de Doc. IVA</a></li>
-                <li><a href="equipos_F.php">Doc. Recibido</a></li>
-                <li><a href="jugadores_F.php">Contenido en Caja</a></li>
+                <li><a href="recibido_iva.php">Doc. Recibido</a></li>
+                <li><a href="caja_iva.php">Contenido en Caja</a></li>
             </ul>
         </li>
         <li>
-            <div class="icon-link">
-                <a href="#">
-                    <i class='bx bx-list-ul'></i>
-                    <span class="link_name">Listado de Clientes</span>
-                </a>
-                <i class="bx bxs-chevron-down arrow"></i>
-            </div>
-            <ul class="sub-menu">
-                <li><a class="link_name" href="#">Listados</a></li>
-                <li><a href="lista_equipos_M.php">IVA</a></li>
-                <li><a href="lista_jugadores_M.php">IRP-RSP</a></li>
+            <a href="lista_visita.php">
+                <i class='bx bx-list-ul'></i>
+                <span class="link_name">Lista de Visitas</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="lista_visita.php">Lista de Visitas</a></li>
             </ul>
         </li>
         <?php if ($_SESSION['rol'] == 1) { ?>
+            <li>
+                <a href="lista_user.php">
+                    <i class='bx bx-list-ul'></i>
+                    <span class="link_name">Lista de Usuarios</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="lista_user.php">Lista de Usuarios</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="registro_cliente.php">
                     <i class='bx bxs-user-plus'></i>
@@ -95,15 +110,6 @@ if ($row_empesa > 0) {
                     <li><a class="link_name" href="registro_usuario.php">Usuarios</a></li>
                 </ul>
             </li>
-            <!-- <li>
-                <a href="lista_user.php">
-                    <i class='bx bx-list-ul'></i>
-                    <span class="link_name">Lista de Usuarios</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="lista_user.php">Lista de Usuarios</a></li>
-                </ul>
-            </li> -->
             <li>
                 <a href="configuracion.php">
                     <i class="bx bx-cog"></i>
@@ -114,34 +120,32 @@ if ($row_empesa > 0) {
                 </ul>
             </li>
         <?php } ?>
-        <li>
-            <div class="profile-details">
-                <div class="profile-content">
-                    <img src="img/user.png" alt="profile">
-                </div>
-                <div class="name-job">
-                    <div class="profile_name"><?php echo $_SESSION['user'] ?></div>
-                    <div class="job"><?php echo $_SESSION['Nrol'] ?></div>
-                </div>
-                <a href="salir.php">
-                    <i class="bx bx-log-out"></i>
-                </a>
-            </div>
-        </li>
     </ul>
+    <div class="profile-details">
+        <div class="profile-content">
+            <img src="img/user.png" alt="profile">
+        </div>
+        <div class="name-job">
+            <div class="profile_name"><?php echo $_SESSION['Nuser'] ?></div>
+            <div class="job"><?php echo $_SESSION['Nrol'] ?></div>
+        </div>
+        <a href="salir.php">
+            <i class="bx bx-log-out"></i>
+        </a>
+    </div>
 </div>
 
 <section class="home-section">
     <div class="home-content">
-        <!-- <i class="bx bx-menu"></i> -->
-        <p class="fecha">Paraguay, <?php echo fechaC(); ?></p>
+        <i class="bx bxs-chevron-right arrow_menu"></i>
+        <p style="margin-left: 50px;" class="fecha">Paraguay, <?php echo fechaC(); ?></p>
         <span class="text"></span>
     </div>
 </section>
 
 <script>
     let arrow = document.querySelectorAll('.arrow');
-    for (var i = 0; i < arrow.length; i++) {
+    for (let i = 0; i < arrow.length; i++) {
         arrow[i].addEventListener('click', (e) => {
             let arrowParent = e.target.parentElement.parentElement;
             console.log(arrowParent);
@@ -149,10 +153,18 @@ if ($row_empesa > 0) {
         });
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const arrowMenu = document.querySelector('.home-section .home-content i.arrow_menu');
+
+        arrowMenu.addEventListener('click', function() {
+            arrowMenu.classList.toggle('rotated');
+        });
+    });
+
     let sidebar = document.querySelector('.sidebar');
 
-    /* let sidebarBtn = document.querySelector('.bx-menu');
+    let sidebarBtn = document.querySelector('.bxs-chevron-right');
     sidebarBtn.addEventListener('click', () => {
         sidebar.classList.toggle('close');
-    }) */
+    })
 </script>
